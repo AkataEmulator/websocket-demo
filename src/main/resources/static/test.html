@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript">
+    const ws = new WebSocket("ws://localhost:8080/myHandler");
+    if ("WebSocket" in window) {
+        ws.onopen = function () {
+
+        }
+
+        ws.onmessage = function (evt) {
+            document.getElementById('messageDiv').innerHTML += evt.data + "</br>"
+        }
+
+        ws.onclose = function () {
+            console.log("close connect");
+        }
+    } else {
+        alert("您的浏览器不支持 WebSocket！")
+    }
+
+    function send() {
+        ws.send(document.getElementById("input").value + ":" + document.getElementById("message").value);
+    }
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>Websocket Demo</title>
+</head>
+<body>
+当前用户：<label for="input"></label><input id="input"/><br/>
+<a href="#" onclick="send();">发送消息</a>: <label for="message"></label><input id="message">
+<div id="messageDiv"></div>
+</body>
+</html>
